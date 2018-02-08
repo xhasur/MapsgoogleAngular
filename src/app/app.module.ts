@@ -8,12 +8,16 @@ import { AgmCoreModule } from '@agm/core';
 import {FormsModule} from "@angular/forms";
 
 import {Routes, RouterModule} from '@angular/router';
+
 import { LugaresComponent } from './lugares/lugares.component';
 import { DetalleComponent } from './detalle/detalle.component';
 import {CrearComponent} from "./crear/crear.component";
 import {ContactoComponent} from "./contacto/contacto.component";
+import { LoginComponent } from "./login/login.component";
+import { RegistroComponent } from "./registro/registro.component";
 
 import { LugaresService } from './services/lugares.service';
+import { AutorizacionService } from './services/autorizacion.service';
 
 
 import { AngularFireModule } from 'angularfire2';
@@ -21,6 +25,9 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { MyGuard } from "./services/my-guard.service";
+
+
 
 
 const appRoutes: Routes = [
@@ -28,6 +35,8 @@ const appRoutes: Routes = [
   {path:'lugares', component: LugaresComponent},
   {path:'detalle/:id', component: DetalleComponent},
   {path:'contacto', component: ContactoComponent},
+  {path:'login', component: LoginComponent},
+  {path:'registro', component: RegistroComponent},
   {path:'crear/:id', component: CrearComponent},
 ];
 
@@ -46,6 +55,8 @@ export const firebaseConfig = {
       DetalleComponent,
       LugaresComponent,
       ContactoComponent,
+      LoginComponent,
+      RegistroComponent,
       CrearComponent
   ],
   imports: [
@@ -62,7 +73,7 @@ export const firebaseConfig = {
     RouterModule.forRoot(appRoutes),
     HttpModule
   ],
-  providers: [LugaresService],
+  providers: [LugaresService,AutorizacionService,MyGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
